@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,6 +58,9 @@ if DEBUG:
     MIDDLEWARE.append("core.middleware.asset_proxy_middleware")
 
 ROOT_URLCONF = '_server.urls'
+
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT') if not DEBUG else BASE_DIR / 'uploads'
+MEDIA_URL = os.environ.get('MEDIA_URL') if not DEBUG else 'usercontent/'
 
 TEMPLATES = [
     {
