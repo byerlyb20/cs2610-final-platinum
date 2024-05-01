@@ -1,8 +1,10 @@
 import { ListWithBottomButtons } from '../components/ListWithBottomButtons'
 import { AccountListItem } from '../components/AccountListItem'
 import styles from './Dashboard.module.css'
+import { useNavigate } from 'react-router'
 
 export function Dashboard() {
+    const navigate = useNavigate()
     return (
         <div className={styles.dashboard}>
             <h1>Welcome, Brigham!</h1>
@@ -10,7 +12,7 @@ export function Dashboard() {
                 <div className={"card container-low " + styles.list}>
                     <ListWithBottomButtons
                         buttonText="Add New Account"
-                        onClick={() => console.log("Hi!")}>
+                        onClick={() => navigate("/account/new")}>
                         <AccountListItem
                             category="Savings"
                             title="Bank of America"

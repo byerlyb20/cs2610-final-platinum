@@ -1,10 +1,11 @@
-import { useLoaderData } from 'react-router'
+import { Outlet, useLoaderData, useNavigate } from 'react-router'
 import { ListWithBottomButtons } from '../components/ListWithBottomButtons'
 import { TransactionListItem } from '../components/TransactionListItem'
 import styles from './Account.module.css'
 
 export function Account() {
-    const account = useLoaderData();
+    const navigate = useNavigate()
+    const account = useLoaderData()
     return (
         <div className={styles.dashboard}>
             <h1>{account.name}</h1>
@@ -12,7 +13,7 @@ export function Account() {
                 <div className={"card container-low " + styles.list}>
                     <ListWithBottomButtons
                         buttonText="New Transaction"
-                        onClick={() => console.log("Hi!")}>
+                        onClick={() => navigate("new")}>
                         <TransactionListItem
                             date="5/5/24"
                             title="Paycheck"
@@ -36,12 +37,7 @@ export function Account() {
                     </ListWithBottomButtons>
                 </div>
                 <div className={styles.detailArea}>
-                    <div className="card container-low">
-                        Card A
-                    </div>
-                    <div className="card container-low">
-                        Card B
-                    </div>
+                    <Outlet />
                 </div>
             </div>
         </div>
@@ -49,6 +45,6 @@ export function Account() {
 }
 
 export async function loader({ params }) {
-    console.log("Loading data for " + params.accountId)
+    //console.log("Loading data for " + params.accountId)
     return { name: "Bank of America" }
 }

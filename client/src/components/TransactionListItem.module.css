@@ -2,7 +2,9 @@
     padding: 16px;
     display: flex;
     flex-direction: row;
-    gap: 16px;;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .item:nth-child(odd) {
