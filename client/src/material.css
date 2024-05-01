@@ -1,5 +1,6 @@
 .card {
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .container-low {

@@ -1,0 +1,28 @@
+.item {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.category {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+.title {
+    font-size: 1.5rem;
+}
+
+.balance {
+    font-weight: 300;
+    font-size: 3em;
+    vertical-align: top;
+}
+
+.dollarSign {
+    font-size: 0.5em;
+}
