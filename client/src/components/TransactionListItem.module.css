@@ -1,0 +1,22 @@
+.item {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;;
+}
+
+.item:nth-child(odd) {
+    background: var(--md-sys-color-surface-bright);
+}
+
+.titleAndDescription {
+    flex: 1;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.description {
+    color: var(--md-sys-color-on-surface-variant);
+}

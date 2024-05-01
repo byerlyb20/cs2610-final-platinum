@@ -5,6 +5,7 @@ import './index.css'
 import 'vite/modulepreload-polyfill'
 import  { createHashRouter, RouterProvider } from "react-router-dom";
 import { Dashboard } from './pages/Dashboard.jsx'
+import { Account, loader as accountLoader } from './pages/Account.jsx'
 
 const router = createHashRouter([
   {
@@ -13,6 +14,11 @@ const router = createHashRouter([
     children: [{
       path: "/",
       element: <Dashboard />
+    },
+    {
+      path: "/account/:accountId",
+      element: <Account />,
+      loader: accountLoader
     }]
   }
 ])
