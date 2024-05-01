@@ -1,0 +1,20 @@
+.listAndButtons {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.list {
+    flex: 1;
+}
+
+.buttons {
+
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px;
+}

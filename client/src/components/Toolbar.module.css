@@ -1,0 +1,12 @@
+.toolbar {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar > div {
+    margin: 24px;
+}

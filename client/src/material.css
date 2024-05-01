@@ -1,0 +1,8 @@
+.card {
+    border-radius: 10px;
+}
+
+.container-low {
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
+}
