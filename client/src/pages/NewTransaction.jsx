@@ -24,15 +24,20 @@ export function NewTransaction() {
     return (
         <div>
             <h1>New Transaction</h1>
-            <label>
-                Description
-                <input type="text" value={description} onChange={e => setDescription(e.target.value)} />
-            </label>
-            <label>
-                Amount
-                <input type="text" value={amount} onChange={e => setAmount(e.target.value)} />
-            </label>
-            <button type="button" onClick={createTransaction}>Add Transaction</button>
+            <div className={`card container-low ${styles.main}`}>
+                <form className="padded">
+                    <label>
+                        Description
+                        <input type="text" value={description} onChange={e => setDescription(e.target.value)} />
+                    </label>
+                    <label>
+                        Amount
+                        <input type="text" value={amount} onChange={e => setAmount(e.target.value)} />
+                    </label>
+                    <br />
+                </form>
+                <button type="button" onClick={createTransaction}>Add Transaction</button>
+            </div>
         </div>
     )
 }

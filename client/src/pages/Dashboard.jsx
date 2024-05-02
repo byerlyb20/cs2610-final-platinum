@@ -11,7 +11,7 @@ export function Dashboard() {
     const accounts = useAccounts()
 
     return (
-        <div className={styles.dashboard}>
+        <div className="page">
             <h1>Welcome{user ? `, ${user.first}` : ""}!</h1>
             <div className={styles.row}>
                 <div className={"card container-low " + styles.list}>

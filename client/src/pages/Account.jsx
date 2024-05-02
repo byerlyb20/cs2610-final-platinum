@@ -10,7 +10,7 @@ export function Account() {
     const [transactions, accountName] = useTransactions(accountId)
 
     return (
-        <div className={styles.dashboard}>
+        <div className="page">
             <h1>{accountName}</h1>
             <div className={styles.row}>
                 <div className={"card container-low " + styles.list}>
