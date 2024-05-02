@@ -12,7 +12,7 @@ export const useUser = () => {
 
     useEffect(() => {
         loadUser()
-    })
+    }, [])
 
     return user
 }

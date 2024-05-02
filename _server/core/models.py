@@ -10,25 +10,26 @@ ACCESS_ROLES = {
 
 class GLAccount(models.Model):
     name = models.CharField(max_length=30)
-    created_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    category = models.CharField(max_length=15)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.PositiveSmallIntegerField()
 
 class AccountAccessRule(models.Model):
-    account = models.OneToOneField(GLAccount, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    account = models.ForeignKey(GLAccount, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=1, choices=ACCESS_ROLES)
 
 class GLEntry(models.Model):
-    account = models.OneToOneField(GLAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(GLAccount, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
-    posting_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    posting_user = models.ForeignKey(User, on_delete=models.CASCADE)
     dollar_amt = models.BigIntegerField()
     subdollar_amt = models.SmallIntegerField()
 
 class GLEntryAttachment(models.Model):
-    entry = models.OneToOneField(GLEntry, on_delete=models.CASCADE)
+    entry = models.ForeignKey(GLEntry, on_delete=models.CASCADE)
     last_updated = models.DateTimeField(auto_now=True)
-    posting_user = models.OneToOneField(User, on_delete=models.CASCADE)
+    posting_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -47,17 +48,17 @@ class Budget(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    created_by = models.OneToOneField(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
 
 class BudgetAccessRule(models.Model):
-    budget = models.OneToOneField(Budget, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    budget = models.ForeignKey(Budget, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=1, choices=ACCESS_ROLES)
 
 class BudgetCategory(models.Model):
     name = models.CharField(max_length=30)
-    budget = models.OneToOneField(Budget, on_delete=models.CASCADE)
-    accounts = models.ManyToManyField(GLAccount)
+    budget = models.ForeignKey(Budget, on_delete=models.CASCADE)
+    accounts = models.ForeignKey(GLAccount, on_delete=models.CASCADE)
     dollar_amt = models.BigIntegerField()
     subdollar_amt = models.SmallIntegerField()

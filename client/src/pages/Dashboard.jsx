@@ -3,10 +3,14 @@ import { AccountListItem } from '../components/AccountListItem'
 import styles from './Dashboard.module.css'
 import { useNavigate } from 'react-router'
 import { useUser } from '../utils/use_user'
+import { useAccounts } from '../utils/use_accounts'
 
 export function Dashboard() {
     const navigate = useNavigate()
     const user = useUser()
+    const accounts = useAccounts()
+
+    console.log(accounts)
 
     return (
         <div className={styles.dashboard}>
@@ -16,18 +20,13 @@ export function Dashboard() {
                     <ListWithBottomButtons
                         buttonText="Add New Account"
                         onClick={() => navigate("/account/new")}>
-                        <AccountListItem
-                            category="Savings"
-                            title="Bank of America"
-                            balance={[4938,75]} />
-                        <AccountListItem
-                            category="Investment"
-                            title="Fidelity"
-                            balance={[19837,87]} />
-                        <AccountListItem
-                            category="Checking"
-                            title="Bank of Utah"
-                            balance={[844,12]} />
+                            {accounts.map(account => (
+                                <AccountListItem
+                                    key={account.number}
+                                    category={account.category}
+                                    title={account.name}
+                                    balance={[4938,75]} />
+                            ))}
                     </ListWithBottomButtons>
                 </div>
                 <div className={styles.detailArea}>

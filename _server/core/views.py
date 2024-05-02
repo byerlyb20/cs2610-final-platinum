@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 import os
 from django.contrib.auth.decorators import login_required
+from .models import GLAccount, AccountAccessRule
 
 # Load manifest when server launches
 MANIFEST = {}
@@ -34,9 +35,39 @@ def user(req):
     })
 
 @login_required
-def account(req, accountId=None):
+def account(req, id=None):
     if req.method == "GET":
-        print("Handling get with %s", accountId)
+        if id == None:
+            def serialize(access_rule):
+                account = access_rule.account
+                return {
+                    "name": account.name,
+                    "category": account.category,
+                    "created_by": {
+                        "first": account.created_by.first_name,
+                        "last": account.created_by.last_name,
+                        "email": account.created_by.email
+                    },
+                    "number": account.number
+                }
+            accounts = map(serialize, AccountAccessRule.objects.filter(user=req.user))
+            return JsonResponse({
+                "accounts": list(accounts)
+            })
     elif req.method == "POST":
-        print("Handling post with %s", accountId)
-    return HttpResponse("Hello")
+        body = json.loads(req.body)
+        if id == None:
+            account = GLAccount(
+                name = body["name"],
+                category = body["category"],
+                created_by = req.user,
+                number = int(body["number"])
+            )
+            account.save()
+            access_rule = AccountAccessRule(
+                account = account,
+                user = req.user,
+                role = 0
+            )
+            access_rule.save()
+    return JsonResponse({})
