@@ -6,4 +6,6 @@ urlpatterns = [
     path('user/', view=views.user),
     path('accounts/<int:id>/', view=views.account),
     path('accounts/', view=views.account),
+    path('accounts/<int:accountId>/transactions/<int:id>/', view=views.transaction),
+    path('accounts/<int:accountId>/transactions/', view=views.transaction),
 ]

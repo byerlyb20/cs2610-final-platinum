@@ -23,6 +23,7 @@ class GLEntry(models.Model):
     account = models.ForeignKey(GLAccount, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     posting_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    short_description = models.CharField(max_length=30)
     dollar_amt = models.BigIntegerField()
     subdollar_amt = models.SmallIntegerField()
 

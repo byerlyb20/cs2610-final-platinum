@@ -7,6 +7,7 @@ import  { createHashRouter, RouterProvider } from "react-router-dom";
 import { Dashboard } from './pages/Dashboard.jsx'
 import { Account, loader as accountLoader } from './pages/Account.jsx'
 import { TransactionDetail, loader as transactionLoader } from './pages/TransactionDetail.jsx'
+import { NewTransaction, loader as newTransactionLoader } from './pages/NewTransaction.jsx'
 import { NewAccount } from './pages/NewAccount.jsx'
 
 const router = createHashRouter([
@@ -27,7 +28,8 @@ const router = createHashRouter([
       },
       {
         path: "new",
-        element: (<p>Create a new transaction here</p>)
+        element: <NewTransaction />,
+        loader: newTransactionLoader
       },
       {
         path: ":transactionId",

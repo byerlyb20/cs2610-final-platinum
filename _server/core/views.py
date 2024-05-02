@@ -6,7 +6,7 @@ import json
 import os
 import math
 from django.contrib.auth.decorators import login_required
-from .models import GLAccount, AccountAccessRule
+from .models import GLAccount, AccountAccessRule, GLEntry
 
 # Load manifest when server launches
 MANIFEST = {}
@@ -77,4 +77,39 @@ def account(req, id=None):
                 role = 0
             )
             access_rule.save()
+    return JsonResponse({})
+
+@login_required
+def transaction(req, accountId, id=None):
+    account = GLAccount.objects.get(pk=accountId)
+    if req.method == "GET":
+        if id == None:
+            def serialize(transaction):
+                return {
+                    "id": transaction.id,
+                    "date": transaction.timestamp.strftime("%x"),
+                    "short_description": transaction.short_description,
+                    "posting_user": {
+                        "first": transaction.posting_user.first_name,
+                        "last": transaction.posting_user.last_name,
+                        "email": transaction.posting_user.email
+                    },
+                    "amount": [transaction.dollar_amt, transaction.subdollar_amt]
+                }
+            transactions = map(serialize, GLEntry.objects.filter(account=account))
+            return JsonResponse({
+                "transactions": list(transactions),
+                "accountName": account.name
+            })
+    elif req.method == "POST":
+        body = json.loads(req.body)
+        if id == None:
+            entry = GLEntry(
+                account = account,
+                posting_user = req.user,
+                short_description = body["short_description"],
+                dollar_amt = int(body["amount"][0]),
+                subdollar_amt = int(body["amount"][1])
+            )
+            entry.save()
     return JsonResponse({})
