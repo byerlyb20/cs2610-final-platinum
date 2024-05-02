@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.db.models import Sum
 import json
 import os
+import math
 from django.contrib.auth.decorators import login_required
 from .models import GLAccount, AccountAccessRule
 
@@ -40,7 +42,11 @@ def account(req, id=None):
         if id == None:
             def serialize(access_rule):
                 account = access_rule.account
+                balance = account.glentry_set.aggregate(dollar=Sum('dollar_amt', default=0), subdollar=Sum('subdollar_amt', default=0))
+                dollar = balance["dollar"] + math.floor(balance["subdollar"] / 100)
+                subdollar = balance["subdollar"] % 100
                 return {
+                    "id": account.id,
                     "name": account.name,
                     "category": account.category,
                     "created_by": {
@@ -48,6 +54,7 @@ def account(req, id=None):
                         "last": account.created_by.last_name,
                         "email": account.created_by.email
                     },
+                    "balance": [dollar, subdollar],
                     "number": account.number
                 }
             accounts = map(serialize, AccountAccessRule.objects.filter(user=req.user))

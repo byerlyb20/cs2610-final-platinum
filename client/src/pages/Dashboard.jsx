@@ -10,8 +10,6 @@ export function Dashboard() {
     const user = useUser()
     const accounts = useAccounts()
 
-    console.log(accounts)
-
     return (
         <div className={styles.dashboard}>
             <h1>Welcome{user ? `, ${user.first}` : ""}!</h1>
@@ -22,10 +20,11 @@ export function Dashboard() {
                         onClick={() => navigate("/account/new")}>
                             {accounts.map(account => (
                                 <AccountListItem
-                                    key={account.number}
+                                    key={account.id}
+                                    id={account.id}
                                     category={account.category}
                                     title={account.name}
-                                    balance={[4938,75]} />
+                                    balance={account.balance} />
                             ))}
                     </ListWithBottomButtons>
                 </div>
